@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx watch src/server.ts"
   },
-  "author": "",
+  "author": "EduardoZFerreira",
   "license": "ISC",
   "devDependencies": {
     "typescript": "^5.6.3"
