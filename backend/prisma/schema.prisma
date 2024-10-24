@@ -12,3 +12,56 @@ datasource db {
   provider = "mongodb"
   url      = env("DATABASE_URL")
 }
+
+model MenuItemCategory {
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
+  title     String
+  menuItems MenuItem[]
+
+  @@map("menuItemCategories")
+}
+
+model MenuItem {
+  id                 String            @id @default(auto()) @map("_id") @db.ObjectId
+  title              String
+  description        String
+  value              Float
+  imageUrl           String
+  MenuItemCategory   MenuItemCategory? @relation(fields: [menuItemCategoryId], references: [id])
+  menuItemCategoryId String?           @db.ObjectId
+
+  @@map("menuItems")
+}
+
+model User {
+  id           String        @id @default(auto()) @map("_id") @db.ObjectId
+  name         String
+  email        String
+  password     String
+  createdAt    DateTime?     @default(now())
+  reservations Reservation[]
+
+  @@map("users")
+}
+
+model Reservation {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  checkIn        DateTime
+  checkOut       DateTime
+  amountOfPeople Int
+  User           User?    @relation(fields: [userId], references: [id])
+  userId         String?  @db.ObjectId
+  tableIDs       String[] @db.ObjectId
+  tables         Table[]  @relation(fields: [tableIDs], references: [id])
+
+  @@map("reservations")
+}
+
+model Table {
+  id             String        @id @default(auto()) @map("_id") @db.ObjectId
+  capacity       Int
+  reservationIDs String[]      @db.ObjectId
+  reservations   Reservation[] @relation(fields: [reservationIDs], references: [id])
+
+  @@map("tables")
+}
