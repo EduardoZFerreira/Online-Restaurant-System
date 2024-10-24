@@ -51,17 +51,6 @@ model Reservation {
   amountOfPeople Int
   User           User?    @relation(fields: [userId], references: [id])
   userId         String?  @db.ObjectId
-  tableIDs       String[] @db.ObjectId
-  tables         Table[]  @relation(fields: [tableIDs], references: [id])
 
   @@map("reservations")
-}
-
-model Table {
-  id             String        @id @default(auto()) @map("_id") @db.ObjectId
-  capacity       Int
-  reservationIDs String[]      @db.ObjectId
-  reservations   Reservation[] @relation(fields: [reservationIDs], references: [id])
-
-  @@map("tables")
 }
