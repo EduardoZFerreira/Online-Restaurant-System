@@ -1,5 +1,6 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IMenuItemCategory } from "../Interfaces/IMenuItemCategory";
+import { SaveReservationDTO } from "../DTOs/SaveReservationDTO";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081" }),
@@ -8,7 +9,7 @@ export const api = createApi({
       query: () => "/menu",
     }),
     addReservation: builder.mutation({
-      query: (reservation: any) => ({
+      query: (reservation: SaveReservationDTO) => ({
         url: "/reservation",
         method: "POST",
         body: reservation,
