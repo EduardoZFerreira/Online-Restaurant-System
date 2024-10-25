@@ -9,7 +9,7 @@ routes.get("/healthcheck", (req: Request, res: Response) => {
   res.json({ status: "OK" });
 });
 
-routes.get("/menuItem", async (req: Request, res: Response) => {
+routes.get("/menu", async (req: Request, res: Response) => {
   res.json(await new MenuItemController().listWithCategories());
 });
 
