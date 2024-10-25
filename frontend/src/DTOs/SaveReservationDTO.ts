@@ -1,14 +1,14 @@
 class SaveReservationDTO {
   name: string;
   amountOfPeople: number;
-  reservationDate: Date;
+  reservationDate: string;
   checkInTime: string;
   checkOutTime: string;
 
   constructor(
     name: string,
     amountOfPeople: number,
-    reservationDate: Date,
+    reservationDate: string,
     checkInTime: string,
     checkOutTime: string
   ) {
