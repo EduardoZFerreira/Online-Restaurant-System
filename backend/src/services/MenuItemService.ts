@@ -2,10 +2,14 @@ import { IMenuItem } from "../interfaces/IMenuItem";
 import prismaClient from "../prisma/PrismaClient";
 
 class MenuItemService {
-  async list() {
-    const menuItems = await prismaClient.menuItem.findMany();
+  async listWithCategories() {
+    const menuItemCategoryList = await prismaClient.menuItemCategory.findMany({
+      include: {
+        menuItems: true,
+      },
+    });
 
-    return menuItems;
+    return menuItemCategoryList;
   }
 
   async create(data: IMenuItem) {
