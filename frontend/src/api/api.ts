@@ -1,10 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 
-export const apiSlice = createApi({
-  reducerPath: "api",
+export const api = createApi({
   baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081" }),
   endpoints: (builder) => ({
-    getMenuItems: builder.query({
+    getMenuItems: builder.query<any, void>({
       query: () => "/menuItem",
     }),
     addReservation: builder.mutation({
@@ -17,4 +16,4 @@ export const apiSlice = createApi({
   }),
 });
 
-export const { useGetMenuItemsQuery, useAddReservationMutation } = apiSlice;
+export const { useGetMenuItemsQuery, useAddReservationMutation } = api;
