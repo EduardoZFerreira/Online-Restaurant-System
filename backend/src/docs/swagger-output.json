@@ -27,6 +27,156 @@
           }
         }
       }
+    },
+    "/menu": {
+      "get": {
+        "summary": "Fetch the menu. The items are grouped by category",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/menuItem"
+                },
+                "example": {
+                  "title": "Pasta",
+                  "description": "Spaghetti pasta",
+                  "value": "10.00",
+                  "imageUrl": "./imgs/pasta.png",
+                  "menuItemCategoryId": "u14129908dfe334"
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Add a new item to the menu",
+        "requestBody": {
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/menuItem"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created menu item",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/menuItem"
+                },
+                "example": {
+                  "title": "Pasta",
+                  "description": "Spaghetti pasta",
+                  "value": "10.00",
+                  "imageUrl": "./imgs/pasta.png",
+                  "menuItemCategoryId": "u14129908dfe334"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/menuItemCategory": {
+      "post": {
+        "summary": "Add a new category in the menu",
+        "requestBody": {
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/menuItemCategory"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created category",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/menuItemCategory"
+                },
+                "example": {
+                  "title": "Sides"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/reservation": {
+      "post": {
+        "summary": "Add a new reservation",
+        "requestBody": {
+          "required": "true",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/reservation"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "The created reservation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/reservation"
+                },
+                "example": {
+                  "reservationDate": "2024-10-25",
+                  "checkInTime": "10:00",
+                  "checkOutTime": "14:00",
+                  "amountOfPeople": "6",
+                  "name": "John Doe"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "menuItem": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" },
+          "description": { "type": "string" },
+          "value": { "type": "number" },
+          "imageUrl": { "type": "string" },
+          "menuItemCategoryId": { "type": "string" }
+        }
+      },
+      "menuItemCategory": {
+        "type": "object",
+        "properties": {
+          "title": { "type": "string" }
+        }
+      },
+      "reservation": {
+        "type": "object",
+        "properties": {
+          "reservationDate": { "type": "string", "format": "yyyy-MM-dd" },
+          "checkInTime": { "type": "string", "format": "HH:mm" },
+          "checkOutTime": { "type": "string", "format": "HH:mm" },
+          "amountOfPeople": { "type": "number" },
+          "name": { "type": "string" }
+        }
+      }
     }
   }
 }

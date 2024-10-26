@@ -13,12 +13,12 @@ routes.get("/menu", async (req: Request, res: Response) => {
   res.status(200).json(await new MenuItemController().listWithCategories());
 });
 
-routes.post("/menuItemCategory", async (req: Request, res: Response) => {
-  res.status(200).json(await new MenuItemCategoryController().create(req));
+routes.post("/menu", async (req: Request, res: Response) => {
+  res.status(200).json(await new MenuItemController().create(req));
 });
 
-routes.post("/menuItem", async (req: Request, res: Response) => {
-  res.status(200).json(await new MenuItemController().create(req));
+routes.post("/menuItemCategory", async (req: Request, res: Response) => {
+  res.status(200).json(await new MenuItemCategoryController().create(req));
 });
 
 routes.post("/reservation", async (req: Request, res: Response) => {
