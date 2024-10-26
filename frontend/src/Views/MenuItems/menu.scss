@@ -1,7 +1,7 @@
 .row {
   justify-content: space-between;
 
-  .card {
+  .menu-item-card {
     padding: 0;
     height: 60vh;
     .card-img-top {
@@ -21,7 +21,7 @@
   .row {
     justify-content: start;
 
-    .card {
+    .menu-item-card {
       height: 50vh;
     }
   }

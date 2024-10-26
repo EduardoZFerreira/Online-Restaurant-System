@@ -15,7 +15,8 @@
   width: 100%;
   left: 0;
   position: absolute;
-  background-image: url("src/assets/img/bg.jpeg");
+  background-image: url("../../src/assets/img/bg.jpeg");
+  background-size: cover;
   filter: blur(5px);
   opacity: 50%;
 }

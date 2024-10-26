@@ -30,7 +30,7 @@ const MenuItemsList = () => {
               <h1 className="display-6 mb-3">{category.title}</h1>
               <div className="row mb-4">
                 {category.menuItems.map((menuItem) => (
-                  <div className="card shadow col-md-5 col-lg-3 col-12 mb-4 m-lg-2">
+                  <div className="card menu-item-card shadow col-md-5 col-lg-3 col-12 mb-4 m-lg-2">
                     <img src={menuItem.imageUrl} className="card-img-top" />
                     <div className="card-body">
                       <h2 className="card-title">{menuItem.title}</h2>

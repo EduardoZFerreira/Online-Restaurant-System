@@ -1,17 +1,17 @@
 .row {
   justify-content: space-between;
 }
-.row .card {
+.row .menu-item-card {
   padding: 0;
   height: 60vh;
 }
-.row .card .card-img-top {
+.row .menu-item-card .card-img-top {
   height: 40%;
 }
-.row .card .card-footer {
+.row .menu-item-card .card-footer {
   color: white;
 }
-.row .card .card-footer h4 {
+.row .menu-item-card .card-footer h4 {
   font-weight: 300;
 }
 
@@ -19,7 +19,7 @@
   .row {
     justify-content: start;
   }
-  .row .card {
+  .row .menu-item-card {
     height: 50vh;
   }
 }/*# sourceMappingURL=menu.css.map */
