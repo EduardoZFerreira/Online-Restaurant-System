@@ -1,0 +1,16 @@
+.navbar {
+  background-color: #ff6347;
+}
+.navbar .navbar-brand {
+  color: #47E3FF !important;
+}
+.navbar .active {
+  font-weight: bold;
+  color: #47E3FF !important;
+}
+
+@media screen and (min-width: 992px) {
+  .nav-link:hover {
+    color: #47E3FF !important;
+  }
+}/*# sourceMappingURL=navbar.css.map */
