@@ -22,6 +22,7 @@ npm run dev
 
 Idealmente utilizam-se duas abas de terminal abertas. Uma para executar cada aplicação.
 
+O banco de dados é hospedado na nuvem em MongoDB e as credenciais de acesso devem ser fornecidas dentro de um arquivo `.env` conforme a [documentação do Prisma](https://www.prisma.io/docs/getting-started/setup-prisma/add-to-existing-project).
 
 ### Dependências
 
@@ -35,3 +36,22 @@ Para a camada de backend, foram utilizados:
 - Express como framework de API
 - CORS para permitir requisições "cross-origin"
 - Body-parser para poder acessar o corpo das requisições
+- Typescript Execute para execução dos arquivos Typescript
+- PrismaClient para conexão com banco de dados
+- Swagger UI para documentação das rotas da API
+
+Algumas dependências de desenvolvimento (`--save-dev`) também foram adicionadas:
+- Prisma para atuar como ORM
+- Typescript para utilizar recursos de tipagem em códigos Javascript
+
+Para o frontend, o projeto foi feito utilizando Vite:
+```
+npm create vite@latest
+```
+
+O Vite já traz um template de projeto em React com apenas algumas dependências cruciais, dando mais maleabilidade para o desenvolvimento e nos permitindo adicionar módulos novos apenas conforme o necessário.
+
+Nas dependências do frontend, temos apenas as dependências básicas do React, junto com o Redux Toolkit para gerenciamento de estado da aplicação e execução de requisições HTTP para a camada de API.
+O Typescript também foi adicionado ao projeto como depenência de desenvolvimento.
+
+E o Bootstrap foi importado direto do CDN para estilização, trazendo recursos prontos e responsivos
