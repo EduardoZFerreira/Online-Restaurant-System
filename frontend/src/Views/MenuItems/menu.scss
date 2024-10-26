@@ -1,0 +1,28 @@
+.row {
+  justify-content: space-between;
+
+  .card {
+    padding: 0;
+    height: 60vh;
+    .card-img-top {
+      height: 40%;
+    }
+
+    .card-footer {
+      color: white;
+      h4 {
+        font-weight: 300;
+      }
+    }
+  }
+}
+
+@media screen and (min-width: 992px) {
+  .row {
+    justify-content: start;
+
+    .card {
+      height: 50vh;
+    }
+  }
+}
