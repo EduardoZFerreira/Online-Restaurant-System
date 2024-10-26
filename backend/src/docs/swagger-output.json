@@ -1,0 +1,32 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Restaurant API",
+    "version": "1.0"
+  },
+  "paths": {
+    "/healthcheck": {
+      "get": {
+        "summary": "A healthcheck endpoint to check if your requests are reaching our API",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": { "type": "string" }
+                  },
+                  "example": {
+                    "status": "OK"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -6,21 +6,21 @@ import { ReservationController } from "./controllers/ReservationController";
 export const routes = Router();
 
 routes.get("/healthcheck", (req: Request, res: Response) => {
-  res.json({ status: "OK" });
+  res.status(200).json({ status: "OK" });
 });
 
 routes.get("/menu", async (req: Request, res: Response) => {
-  res.json(await new MenuItemController().listWithCategories());
+  res.status(200).json(await new MenuItemController().listWithCategories());
 });
 
 routes.post("/menuItemCategory", async (req: Request, res: Response) => {
-  res.json(await new MenuItemCategoryController().create(req));
+  res.status(200).json(await new MenuItemCategoryController().create(req));
 });
 
 routes.post("/menuItem", async (req: Request, res: Response) => {
-  res.json(await new MenuItemController().create(req));
+  res.status(200).json(await new MenuItemController().create(req));
 });
 
 routes.post("/reservation", async (req: Request, res: Response) => {
-  res.json(await new ReservationController().create(req));
+  res.status(200).json(await new ReservationController().create(req));
 });
