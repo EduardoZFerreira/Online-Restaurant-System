@@ -1,5 +1,3 @@
-import React from "react";
-
 const Success = () => {
   return <div>Sua reserva foi concluída com sucesso!</div>;
 };

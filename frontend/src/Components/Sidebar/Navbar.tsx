@@ -1,4 +1,4 @@
-import { Link, useMatch, useResolvedPath } from "react-router-dom";
+import { Link, useMatch } from "react-router-dom";
 import "./navbar.css";
 
 function Navbar() {
