@@ -3,7 +3,9 @@ import { IMenuItemCategory } from "../Interfaces/IMenuItemCategory";
 import { SaveReservationDTO } from "../DTOs/SaveReservationDTO";
 
 export const api = createApi({
-  baseQuery: fetchBaseQuery({ baseUrl: "http://localhost:8081" }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_API_URL ?? "http://localhost:8081",
+  }),
   endpoints: (builder) => ({
     getMenuItems: builder.query<IMenuItemCategory[], void>({
       query: () => "/menu",

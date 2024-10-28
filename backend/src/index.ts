@@ -13,6 +13,6 @@ app.use(bodyParser.json());
 app.use(routes);
 app.use("/docs", swaggerUI.serve, swaggerUI.setup(swaggerFile));
 
-app.listen(8081, () => {
+app.listen(Number(process.env.API_PORT) ?? 8081, () => {
   console.log("server online");
 });
