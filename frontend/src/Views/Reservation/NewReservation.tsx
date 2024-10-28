@@ -48,6 +48,10 @@ const NewReservation = () => {
         if (response.id) {
           navigator("/reservations/success");
         }
+      })
+      .catch((response) => {
+        setValidationMessage(response.data.error);
+        setAlertVisible(true);
       });
   };
 
