@@ -11,7 +11,7 @@ Para hospedar a aplicação, foram utilizados os serviços da [Netlify](https://
 
 [Frontend](https://lustrous-bonbon-fe717c.netlify.app)
 
-[Documentação da API no Swagger](online-restaurant-api.onrender.com/docs/)
+[Documentação da API no Swagger](https://online-restaurant-api.onrender.com/docs/)
 
 ### Linguagem
 Tanto a parte de backend quanto o front end foram desenvolvidos utilizando Typescript. A linguagem foi escolhida pela praticidade de implementação, combinada com a possibilidade de criar uma estrutura concisa por meio dos recursos de tipagem.
