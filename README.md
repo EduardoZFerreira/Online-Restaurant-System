@@ -6,6 +6,12 @@ O sistema conta com um menu de navegação no topo da tela, para que o usuário 
 
 ## Tecnologias utilizadas
 
+### Hospedagem
+Para hospedar a aplicação, foram utilizados os serviços da [Netlify](https://www.netlify.com) para o frontend e [Render](https://render.com) para o backend. Ambos os serviços possuem planos gratuitos. Utilize os links abaixo para acessar:
+
+[Frontend](https://lustrous-bonbon-fe717c.netlify.app)
+[Documentação da API no Swagger](online-restaurant-api.onrender.com/docs/)
+
 ### Linguagem
 Tanto a parte de backend quanto o front end foram desenvolvidos utilizando Typescript. A linguagem foi escolhida pela praticidade de implementação, combinada com a possibilidade de criar uma estrutura concisa por meio dos recursos de tipagem.
 O React JS também foi utilizado no desenvolvimento do front end pela sua capacidade de componentização e organização, além de seus recursos de roteamento e gerenciamento de estado, permitindo uma experiência de usuário rápida e sem recarregamentos na página.
