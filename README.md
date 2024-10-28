@@ -10,6 +10,7 @@ O sistema conta com um menu de navegação no topo da tela, para que o usuário 
 Para hospedar a aplicação, foram utilizados os serviços da [Netlify](https://www.netlify.com) para o frontend e [Render](https://render.com) para o backend. Ambos os serviços possuem planos gratuitos. Utilize os links abaixo para acessar:
 
 [Frontend](https://lustrous-bonbon-fe717c.netlify.app)
+
 [Documentação da API no Swagger](online-restaurant-api.onrender.com/docs/)
 
 ### Linguagem
