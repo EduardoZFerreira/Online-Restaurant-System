@@ -22,5 +22,9 @@ routes.post("/menuItemCategory", async (req: Request, res: Response) => {
 });
 
 routes.post("/reservation", async (req: Request, res: Response) => {
-  res.status(200).json(await new ReservationController().create(req));
+  try {
+    res.status(200).json(await new ReservationController().create(req));
+  } catch (exception: any) {
+    res.status(500).json({ error: exception.message });
+  }
 });

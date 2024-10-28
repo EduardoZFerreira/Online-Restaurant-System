@@ -2,8 +2,14 @@ import { FormEvent, useState } from "react";
 import { useAddReservationMutation } from "../../api/api";
 import { SaveReservationDTO } from "../../DTOs/SaveReservationDTO";
 import { useNavigate } from "react-router-dom";
+import FormAlert from "../../Components/FormAlert/FormAlert";
 
 const NewReservation = () => {
+  const [alertVisible, setAlertVisible] = useState(false);
+  const [validationMessage, setValidationMessage] = useState<string>("");
+
+  const minimumAheadMinutes = 60;
+
   const [reservation, setReservation] = useState<SaveReservationDTO>(
     new SaveReservationDTO("", 1, "", "", "")
   );
@@ -11,6 +17,28 @@ const NewReservation = () => {
   const [addReservation] = useAddReservationMutation();
 
   const navigator = useNavigate();
+
+  const handleReservationCheckIn = (checkInTime: string) => {
+    const minimumDate = new Date(
+      new Date().getTime() + minimumAheadMinutes * 60000
+    );
+    const reservationCheckIn = new Date(
+      `${reservation.reservationDate} ${checkInTime}`
+    );
+
+    if (reservationCheckIn >= minimumDate) {
+      setReservation({
+        ...reservation,
+        checkInTime: checkInTime,
+      });
+      setAlertVisible(false);
+    } else {
+      setValidationMessage(
+        "As reservas só podem ser agendadas com 1 hora de antecedência!"
+      );
+      setAlertVisible(true);
+    }
+  };
 
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
@@ -20,12 +48,25 @@ const NewReservation = () => {
         if (response.id) {
           navigator("/reservations/success");
         }
+      })
+      .catch((response) => {
+        setValidationMessage(response.data.error);
+        setAlertVisible(true);
       });
   };
 
   return (
     <>
       <div className="container mt-4">
+        {alertVisible && (
+          <FormAlert
+            error={validationMessage}
+            onClose={() => {
+              setValidationMessage("");
+              setAlertVisible(false);
+            }}
+          />
+        )}
         <div className="row justify-content-center">
           <div className="card shadow col-lg-8 col-md-10 col-11 border-secondary">
             <h4 className="card-header display-6">Nova reserva</h4>
@@ -81,12 +122,7 @@ const NewReservation = () => {
                   type="time"
                   name="checkInTime"
                   className="form-control"
-                  onChange={(e) =>
-                    setReservation({
-                      ...reservation,
-                      checkInTime: e.target.value,
-                    })
-                  }
+                  onChange={(e) => handleReservationCheckIn(e.target.value)}
                   placeholder="Horário de entrada"
                   required
                 />
