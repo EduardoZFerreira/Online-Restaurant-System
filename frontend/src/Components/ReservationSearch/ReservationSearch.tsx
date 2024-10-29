@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import { useGetUsersQuery } from "../../api/api";
 
 interface ReservationSearchProperties {
