@@ -69,6 +69,16 @@ class ReservationService {
 
     return reservation;
   }
+
+  async getByUser(userId: string) {
+    const reservations = await prismaClient.reservation.findMany({
+      where: {
+        userId: userId,
+      },
+    });
+
+    return reservations;
+  }
 }
 
 export { ReservationService };

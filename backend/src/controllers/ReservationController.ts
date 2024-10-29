@@ -11,6 +11,16 @@ class ReservationController {
 
     return reservation;
   }
+
+  async getByUser(request: Request) {
+    const filter = request.params.userId as string;
+
+    if (!filter) {
+      throw new Error("É necessário informar um usuário");
+    }
+
+    return await new ReservationService().getByUser(filter);
+  }
 }
 
 export { ReservationController };
