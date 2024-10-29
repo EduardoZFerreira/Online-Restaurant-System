@@ -2,11 +2,16 @@ import { Router, Request, Response } from "express";
 import { MenuItemCategoryController } from "./controllers/MenuItemCategoryController";
 import { MenuItemController } from "./controllers/MenuItemController";
 import { ReservationController } from "./controllers/ReservationController";
+import { UserController } from "./controllers/UserController";
 
 export const routes = Router();
 
 routes.get("/healthcheck", (req: Request, res: Response) => {
   res.status(200).json({ status: "OK" });
+});
+
+routes.get("/user", async (req: Request, res: Response) => {
+  res.status(200).json(await new UserController().listUsers());
 });
 
 routes.get("/menu", async (req: Request, res: Response) => {
