@@ -4,6 +4,7 @@ import Home from "./Views/Home/Home";
 import NewReservation from "./Views/Reservation/NewReservation";
 import MenuItemsList from "./Views/MenuItems/MenuItemsList";
 import Success from "./Views/Reservation/Success";
+import ListReservations from "./Views/Reservation/ListReservations";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/reservations/new" element={<NewReservation />} />
         <Route path="/reservations/success" element={<Success />} />
+        <Route path="/reservations/list" element={<ListReservations />} />
         <Route path="/menuItems/list" element={<MenuItemsList />} />
       </Routes>
     </>
