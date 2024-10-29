@@ -1,5 +1,4 @@
 import { Request } from "express";
-import { IReservation } from "../interfaces/IReservation";
 import { ReservationService } from "../services/ReservationService";
 import { ISaveReservationDTO } from "../interfaces/ISaveReservationDTO";
 
