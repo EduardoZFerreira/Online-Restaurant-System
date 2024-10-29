@@ -36,7 +36,7 @@ Dentro do arquivo `.env`, a configuração fica:
 
 ```
 DATABASE_URL="mongodb+srv://[USUÁRIO NO MONGODB]:[SENHA]@[ENDEREÇO DO CLUSTER]/restaurant?retryWrites=true&w=majority&appName=restaurant"
-TZ="America/SP";
+TZ="America/Sao_Paulo";
 ```
 
 O `timezone` foi definido como "America/SP" para garantir a precisão dos horários no cadastro das reservas.
