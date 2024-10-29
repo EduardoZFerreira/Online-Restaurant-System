@@ -21,6 +21,15 @@ routes.post("/menuItemCategory", async (req: Request, res: Response) => {
   res.status(200).json(await new MenuItemCategoryController().create(req));
 });
 
+routes.get("/reservation/user/:userId", async (req: Request, res: Response) => {
+  try {
+    res.status(200).json(await new ReservationController().getByUser(req));
+  } catch (exception: any) {
+    console.log(exception);
+    res.status(500).json({ error: exception.message });
+  }
+});
+
 routes.post("/reservation", async (req: Request, res: Response) => {
   try {
     res.status(200).json(await new ReservationController().create(req));

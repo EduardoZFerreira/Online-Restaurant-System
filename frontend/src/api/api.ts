@@ -1,6 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IMenuItemCategory } from "../Interfaces/IMenuItemCategory";
 import { SaveReservationDTO } from "../DTOs/SaveReservationDTO";
+import { IReservation } from "../Interfaces/IReservation";
 
 export const api = createApi({
   baseQuery: fetchBaseQuery({
@@ -17,7 +18,14 @@ export const api = createApi({
         body: reservation,
       }),
     }),
+    getReservationByUserId: builder.query<IReservation[], string>({
+      query: (userId) => `/reservation/user/${userId}`,
+    }),
   }),
 });
 
-export const { useGetMenuItemsQuery, useAddReservationMutation } = api;
+export const {
+  useGetMenuItemsQuery,
+  useAddReservationMutation,
+  useGetReservationByUserIdQuery,
+} = api;
