@@ -28,6 +28,23 @@
         }
       }
     },
+    "/user": {
+      "get": {
+        "summary": "List users",
+        "responses": {
+          "200": {
+            "description": "A list with the users",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/user"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/menu": {
       "get": {
         "summary": "Fetch the menu. The items are grouped by category",
@@ -147,10 +164,49 @@
           }
         }
       }
+    },
+    "/reservation/user/{userId}": {
+      "get": {
+        "summary": "A list of reservations by user id",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "userId",
+            "schema": { "type": "string" },
+            "required": "true",
+            "description": "The id of the user to get reservations"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "The list with reservations",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/reservation"
+                }
+              }
+            },
+            "example": {
+              "reservationDate": "2024-10-25",
+              "checkInTime": "10:00",
+              "checkOutTime": "14:00",
+              "amountOfPeople": "6"
+            }
+          }
+        }
+      }
     }
   },
   "components": {
     "schemas": {
+      "user": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "name": { "type": "string" }
+        }
+      },
       "menuItem": {
         "type": "object",
         "properties": {

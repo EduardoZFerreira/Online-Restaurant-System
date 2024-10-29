@@ -46,6 +46,19 @@ function Navbar() {
                   Consultar cardápio
                 </Link>
               </li>
+              <li className="nav-item">
+                <Link
+                  to="/reservations/list"
+                  className={`nav-link ${
+                    useMatch({ path: "/reservations/list", end: true })
+                      ? "active"
+                      : ""
+                  }`}
+                >
+                  {" "}
+                  Consultar reservas{" "}
+                </Link>
+              </li>
             </ul>
           </div>
         </div>
