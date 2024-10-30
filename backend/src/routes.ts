@@ -3,6 +3,7 @@ import { MenuItemCategoryController } from "./controllers/MenuItemCategoryContro
 import { MenuItemController } from "./controllers/MenuItemController";
 import { ReservationController } from "./controllers/ReservationController";
 import { UserController } from "./controllers/UserController";
+import { authJWT } from "./middleware/auth";
 
 export const routes = Router();
 
@@ -19,7 +20,37 @@ routes.post("/user", async (req: Request, res: Response) => {
 });
 
 routes.post("/authenticate", async (req: Request, res: Response) => {
-  res.status(200).json(await new UserController().auth(req));
+  const authResponse = await new UserController().auth(req);
+  if (authResponse.error) {
+    res.status(401).json({ error: authResponse.error });
+  } else {
+    res.cookie("jwt", authResponse.refreshToken, {
+      httpOnly: true,
+      sameSite: "none",
+      secure: true,
+      maxAge: 24 * 60 * 60 * 1000,
+    });
+    res.json({ token: authResponse.accessToken });
+  }
+});
+
+routes.get("/reauthenticate", async (req: Request, res: Response) => {
+  const authResponse = await new UserController().refreshToken(req);
+  if (authResponse.error) {
+    res.status(401).json({ error: authResponse.error });
+  } else {
+    res.json({ token: authResponse.accessToken });
+  }
+});
+
+routes.get("/logout", async (req: Request, res: Response) => {
+  const response = await new UserController().logOut(req);
+  res.clearCookie("jwt", {
+    httpOnly: true,
+    sameSite: "none",
+    secure: true,
+  });
+  res.sendStatus(204);
 });
 
 routes.get("/menu", async (req: Request, res: Response) => {
@@ -43,10 +74,12 @@ routes.get("/reservation/user/:userId", async (req: Request, res: Response) => {
   }
 });
 
-routes.post("/reservation", async (req: Request, res: Response) => {
-  try {
-    res.status(200).json(await new ReservationController().create(req));
-  } catch (exception: any) {
-    res.status(500).json({ error: exception.message });
-  }
-});
+routes
+  .route("/reservation")
+  .post(authJWT, async (req: Request, res: Response) => {
+    try {
+      res.status(200).json(await new ReservationController().create(req));
+    } catch (exception: any) {
+      res.status(500).json({ error: exception.message });
+    }
+  });

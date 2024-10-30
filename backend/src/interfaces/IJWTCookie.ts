@@ -1,0 +1,3 @@
+interface IJWTCookie {
+  jwt: string;
+}

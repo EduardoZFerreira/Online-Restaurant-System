@@ -12,9 +12,28 @@ class UserController {
     return await new UserService().create(userData);
   }
 
-  async auth(req: Request) {
+  async auth(req: Request): Promise<IAuthenticationResponse> {
     const { username, password } = req.body;
     return await new UserService().authenticate(username, password);
+  }
+
+  async refreshToken(req: Request): Promise<IAuthenticationResponse> {
+    const cookie = req.cookies;
+    if (!cookie?.jwt) {
+      console.log("No cookies");
+      throw new Error("No refresh token provided");
+    }
+
+    return await new UserService().refreshToken(cookie as IJWTCookie);
+  }
+
+  async logOut(req: Request) {
+    const cookie = req.cookies;
+    if (!cookie?.jwt) {
+      return { success: true };
+    }
+    await new UserService().logOut(cookie as IJWTCookie);
+    return { success: true };
   }
 }
 

@@ -1,6 +1,7 @@
 import { ISaveUserDTO } from "../interfaces/ISaveUserDTO";
 import prismaClient from "../prisma/PrismaClient";
 import { hash, genSalt, compare } from "bcrypt";
+import Jwt from "jsonwebtoken";
 
 class UserService {
   async listUsers() {
@@ -23,23 +24,78 @@ class UserService {
     return newUser;
   }
 
-  async authenticate(username: string, password: string) {
+  async authenticate(
+    username: string,
+    password: string
+  ): Promise<IAuthenticationResponse> {
     const user = await prismaClient.user.findFirst({
       where: {
         email: username,
       },
     });
 
+    let data: IAuthenticationResponse;
+
     if (user) {
       const passwordCompare = await compare(password, user.password);
       if (passwordCompare) {
-        // handle correct password
+        const accessToken = Jwt.sign(
+          { username: user.email },
+          process.env.ACCESS_TOKEN as string,
+          { expiresIn: "30s" }
+        );
+
+        // TODO: Persist refresh token
+        const refreshToken = Jwt.sign(
+          { username: user.email },
+          process.env.REFRESH_TOKEN as string,
+          { expiresIn: "1d" }
+        );
+
+        data = {
+          accessToken: accessToken,
+          refreshToken: refreshToken,
+        };
       } else {
-        // handle wrong password
+        data = {
+          error: "Wrong password",
+        };
       }
+    } else {
+      data = {
+        error: "User not found",
+      };
     }
 
-    return user;
+    return data;
+  }
+
+  async refreshToken(cookie: IJWTCookie): Promise<IAuthenticationResponse> {
+    // Find the user related to the refresh token
+
+    let response: IAuthenticationResponse = {};
+
+    Jwt.verify(
+      cookie.jwt,
+      process.env.REFRESH_TOKEN as string,
+      (err, decoded: any) => {
+        // TODO: Handle errors and if the username in the token is different from the found user
+        const newAccesToken = Jwt.sign(
+          { username: decoded.email },
+          process.env.ACCESS_TOKEN as string,
+          { expiresIn: "30s" }
+        );
+        response = {
+          accessToken: newAccesToken,
+        };
+      }
+    );
+
+    return response;
+  }
+
+  async logOut(cookie: IJWTCookie) {
+    // TODO: Find token in db and delete it
   }
 }
 
