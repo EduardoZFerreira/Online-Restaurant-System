@@ -18,10 +18,30 @@ class UserService {
         name: user.name,
         email: user.email,
         password: hashedPassword,
+        roles: [Roles.USER],
       },
     });
 
     return newUser;
+  }
+
+  async addRole(user: ISaveUserDTO) {
+    const existingUser = await prismaClient.user.findFirst({
+      where: {
+        email: user.email,
+      },
+    });
+
+    const currentRoles: Roles[] = existingUser?.roles as Roles[];
+
+    if (currentRoles.indexOf(user.role as Roles) != -1) return;
+
+    await prismaClient.user.update({
+      where: { id: existingUser?.id },
+      data: {
+        roles: [...currentRoles, user.role as Roles],
+      },
+    });
   }
 
   async authenticate(
@@ -45,14 +65,13 @@ class UserService {
           { expiresIn: "30s" }
         );
 
-        // TODO: Persist refresh token
         const refreshToken = Jwt.sign(
           { username: user.email },
           process.env.REFRESH_TOKEN as string,
           { expiresIn: "1d" }
         );
 
-        const updatedUser = await prismaClient.user.update({
+        await prismaClient.user.update({
           where: { id: user.id },
           data: {
             refreshToken: refreshToken,
@@ -102,8 +121,6 @@ class UserService {
   }
 
   async logOut(cookie: IJWTCookie) {
-    // TODO: Find token in db and delete it
-
     const tokenOwner = await prismaClient.user.findFirst({
       where: { refreshToken: cookie.jwt },
     });

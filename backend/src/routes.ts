@@ -19,6 +19,14 @@ routes.post("/user", async (req: Request, res: Response) => {
   res.status(200).json(await new UserController().create(req));
 });
 
+routes.post("/user/role", async (req: Request, res: Response) => {
+  const response = await new UserController().updateRoles(req);
+  if (response.success) res.sendStatus(200);
+  else {
+    res.status(500).json(response.error);
+  }
+});
+
 routes.post("/authenticate", async (req: Request, res: Response) => {
   const authResponse = await new UserController().auth(req);
   if (authResponse.error) {

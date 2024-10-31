@@ -12,6 +12,16 @@ class UserController {
     return await new UserService().create(userData);
   }
 
+  async updateRoles(req: Request) {
+    const userData = req.body as ISaveUserDTO;
+    try {
+      await new UserService().addRole(userData);
+      return { success: true };
+    } catch (error) {
+      return { error: error };
+    }
+  }
+
   async auth(req: Request): Promise<IAuthenticationResponse> {
     const { username, password } = req.body;
     return await new UserService().authenticate(username, password);
