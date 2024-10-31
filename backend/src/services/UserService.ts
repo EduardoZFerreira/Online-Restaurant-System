@@ -52,6 +52,13 @@ class UserService {
           { expiresIn: "1d" }
         );
 
+        const updatedUser = await prismaClient.user.update({
+          where: { id: user.id },
+          data: {
+            refreshToken: refreshToken,
+          },
+        });
+
         data = {
           accessToken: accessToken,
           refreshToken: refreshToken,
@@ -96,6 +103,17 @@ class UserService {
 
   async logOut(cookie: IJWTCookie) {
     // TODO: Find token in db and delete it
+
+    const tokenOwner = await prismaClient.user.findFirst({
+      where: { refreshToken: cookie.jwt },
+    });
+
+    await prismaClient.user.update({
+      where: { id: tokenOwner?.id },
+      data: {
+        refreshToken: null,
+      },
+    });
   }
 }
 
