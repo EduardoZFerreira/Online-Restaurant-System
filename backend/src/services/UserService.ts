@@ -1,3 +1,4 @@
+import { Roles } from "../config/roles";
 import { ISaveUserDTO } from "../interfaces/ISaveUserDTO";
 import prismaClient from "../prisma/PrismaClient";
 import { hash, genSalt, compare } from "bcrypt";
@@ -67,7 +68,7 @@ class UserService {
             },
           },
           process.env.ACCESS_TOKEN as string,
-          { expiresIn: "30s" }
+          { expiresIn: "10m" }
         );
 
         const refreshToken = Jwt.sign(
@@ -121,7 +122,7 @@ class UserService {
               },
             },
             process.env.ACCESS_TOKEN as string,
-            { expiresIn: "30s" }
+            { expiresIn: "10m" }
           );
           response = {
             accessToken: newAccesToken,

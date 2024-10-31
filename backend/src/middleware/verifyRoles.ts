@@ -1,4 +1,5 @@
 import { Request } from "express";
+import { Roles } from "../config/roles";
 
 const verifyRoles = (...allowedRoles: Roles[]) => {
   return (req: any, res: any, next: any) => {
