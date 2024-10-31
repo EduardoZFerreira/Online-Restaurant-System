@@ -4,12 +4,15 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import swaggerUI from "swagger-ui-express";
 import cookieParser from "cookie-parser";
+import { corsOptions } from "./config/corsOptions";
+import { credentials } from "./middleware/credentials";
 
 const swaggerFile = require("./docs/swagger-output.json");
 
 const app = express();
 
-app.use(cors());
+app.use(credentials);
+app.use(cors(corsOptions));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
