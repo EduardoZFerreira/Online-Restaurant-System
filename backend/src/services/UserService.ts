@@ -60,7 +60,12 @@ class UserService {
       const passwordCompare = await compare(password, user.password);
       if (passwordCompare) {
         const accessToken = Jwt.sign(
-          { username: user.email },
+          {
+            userInfo: {
+              username: user.email,
+              roles: user.roles,
+            },
+          },
           process.env.ACCESS_TOKEN as string,
           { expiresIn: "30s" }
         );
@@ -97,25 +102,33 @@ class UserService {
   }
 
   async refreshToken(cookie: IJWTCookie): Promise<IAuthenticationResponse> {
-    // Find the user related to the refresh token
+    const tokenOwner = await prismaClient.user.findFirst({
+      where: { refreshToken: cookie.jwt },
+    });
 
     let response: IAuthenticationResponse = {};
-
-    Jwt.verify(
-      cookie.jwt,
-      process.env.REFRESH_TOKEN as string,
-      (err, decoded: any) => {
-        // TODO: Handle errors and if the username in the token is different from the found user
-        const newAccesToken = Jwt.sign(
-          { username: decoded.email },
-          process.env.ACCESS_TOKEN as string,
-          { expiresIn: "30s" }
-        );
-        response = {
-          accessToken: newAccesToken,
-        };
-      }
-    );
+    if (tokenOwner) {
+      Jwt.verify(
+        cookie.jwt,
+        process.env.REFRESH_TOKEN as string,
+        (err, decoded: any) => {
+          // TODO: Handle errors and if the username in the token is different from the found user
+          const newAccesToken = Jwt.sign(
+            {
+              userInfo: {
+                username: tokenOwner.email,
+                roles: tokenOwner.roles,
+              },
+            },
+            process.env.ACCESS_TOKEN as string,
+            { expiresIn: "30s" }
+          );
+          response = {
+            accessToken: newAccesToken,
+          };
+        }
+      );
+    }
 
     return response;
   }
