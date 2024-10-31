@@ -8,10 +8,6 @@ publicRoutes.get("/healthcheck", (req: Request, res: Response) => {
   res.status(200).json({ status: "OK" });
 });
 
-publicRoutes.get("/user", async (req: Request, res: Response) => {
-  res.status(200).json(await new UserController().listUsers());
-});
-
 publicRoutes.post("/user", async (req: Request, res: Response) => {
   res.status(200).json(await new UserController().create(req));
 });

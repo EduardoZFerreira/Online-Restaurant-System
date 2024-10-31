@@ -19,6 +19,12 @@ privateRoutes
   });
 
 privateRoutes
+  .route("/user")
+  .get(verifyRoles(Roles.ADMIN), async (req: Request, res: Response) => {
+    res.status(200).json(await new UserController().listUsers());
+  });
+
+privateRoutes
   .route("/reservation/user/:userId")
   .get(verifyRoles(Roles.ADMIN), async (req: Request, res: Response) => {
     try {
