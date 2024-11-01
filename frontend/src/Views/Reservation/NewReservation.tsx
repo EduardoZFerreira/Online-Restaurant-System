@@ -3,15 +3,19 @@ import { useAddReservationMutation } from "../../api/api";
 import { SaveReservationDTO } from "../../DTOs/SaveReservationDTO";
 import { useNavigate } from "react-router-dom";
 import FormAlert from "../../Components/FormAlert/FormAlert";
+import { useSelector } from "react-redux";
+import { selectCurrentName } from "../../features/authSlice";
 
 const NewReservation = () => {
+  const name = useSelector(selectCurrentName);
+
   const [alertVisible, setAlertVisible] = useState(false);
   const [validationMessage, setValidationMessage] = useState<string>("");
 
   const minimumAheadMinutes = 60;
 
   const [reservation, setReservation] = useState<SaveReservationDTO>(
-    new SaveReservationDTO("", 1, "", "", "")
+    new SaveReservationDTO(name, 1, "", "", "")
   );
 
   const [addReservation] = useAddReservationMutation();
@@ -69,7 +73,7 @@ const NewReservation = () => {
         )}
         <div className="row justify-content-center">
           <div className="card shadow col-lg-8 col-md-10 col-11 border-secondary">
-            <h4 className="card-header display-6">Nova reserva</h4>
+            <h4 className="card-header display-6">Nova reserva para {name} </h4>
             <form className="p-4" onSubmit={handleSubmit}>
               <div className="mb-3 form-floating">
                 <input
@@ -80,6 +84,7 @@ const NewReservation = () => {
                     setReservation({ ...reservation, name: e.target.value })
                   }
                   placeholder="Reserva em nome de..."
+                  value={name}
                   required
                 />
                 <label htmlFor="name">Reserva em nome de...</label>
