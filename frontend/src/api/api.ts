@@ -22,11 +22,13 @@ const baseQuery = fetchBaseQuery({
 
 const baseQueryReauth = async (args: any, api: any, extraOptions: any) => {
   let result = await baseQuery(args, api, extraOptions);
-  if (result?.error?.status === 403) {
+
+  if (result?.error?.originalStatus === 403) {
     const refreshResult = await baseQuery("/reauthenticate", api, extraOptions);
     if (refreshResult?.data) {
-      const user = api.getState().auth.user;
-      api.dispatch(setCredentials({ ...refreshResult.data, user }));
+      const state = api.getState().auth;
+      const data = refreshResult.data as { token: string };
+      api.dispatch(setCredentials({ ...state, token: data.token }));
       result = await baseQuery(args, api, extraOptions);
     } else {
       api.dispatch(logOut());
