@@ -86,6 +86,7 @@ class UserService {
         });
 
         data = {
+          name: user.name,
           accessToken: accessToken,
           refreshToken: refreshToken,
           roles: user.roles as Roles[],
