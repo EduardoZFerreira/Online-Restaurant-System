@@ -31,7 +31,6 @@ class UserController {
   async refreshToken(req: Request): Promise<IAuthenticationResponse> {
     const cookie = req.cookies;
     if (!cookie?.jwt) {
-      console.log("No cookies");
       throw new Error("No refresh token provided");
     }
 

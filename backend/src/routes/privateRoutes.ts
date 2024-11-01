@@ -30,7 +30,6 @@ privateRoutes
     try {
       res.status(200).json(await new ReservationController().getByUser(req));
     } catch (exception: any) {
-      console.log(exception);
       res.status(500).json({ error: exception.message });
     }
   });
@@ -45,17 +44,6 @@ privateRoutes
   .route("/menu")
   .post(verifyRoles(Roles.ADMIN), async (req: Request, res: Response) => {
     res.status(200).json(await new MenuItemController().create(req));
-  });
-
-privateRoutes
-  .route("/reauthenticate")
-  .get(async (req: Request, res: Response) => {
-    const authResponse = await new UserController().refreshToken(req);
-    if (authResponse.error) {
-      res.status(401).json({ error: authResponse.error });
-    } else {
-      res.json({ token: authResponse.accessToken });
-    }
   });
 
 privateRoutes.route("/logout").get(async (req: Request, res: Response) => {

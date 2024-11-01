@@ -1,6 +1,7 @@
 import { Roles } from "../config/roles";
 
 interface IAuthenticationResponse {
+  name?: string;
   accessToken?: string;
   refreshToken?: string;
   error?: string;
