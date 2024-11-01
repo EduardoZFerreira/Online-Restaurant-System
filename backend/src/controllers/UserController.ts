@@ -1,3 +1,4 @@
+import { IAuthenticationResponse } from "../interfaces/IAuthenticationResponse";
 import { ISaveUserDTO } from "../interfaces/ISaveUserDTO";
 import { UserService } from "../services/UserService";
 import { Request } from "express";

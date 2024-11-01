@@ -1,4 +1,5 @@
 import { Roles } from "../config/roles";
+import { IAuthenticationResponse } from "../interfaces/IAuthenticationResponse";
 import { ISaveUserDTO } from "../interfaces/ISaveUserDTO";
 import prismaClient from "../prisma/PrismaClient";
 import { hash, genSalt, compare } from "bcrypt";
@@ -87,6 +88,7 @@ class UserService {
         data = {
           accessToken: accessToken,
           refreshToken: refreshToken,
+          roles: user.roles as Roles[],
         };
       } else {
         data = {
@@ -114,7 +116,7 @@ class UserService {
         process.env.REFRESH_TOKEN as string,
         (err, decoded: any) => {
           // TODO: Handle errors and if the username in the token is different from the found user
-          const newAccesToken = Jwt.sign(
+          const newAccessToken = Jwt.sign(
             {
               userInfo: {
                 username: tokenOwner.email,
@@ -125,7 +127,7 @@ class UserService {
             { expiresIn: "10m" }
           );
           response = {
-            accessToken: newAccesToken,
+            accessToken: newAccessToken,
           };
         }
       );
